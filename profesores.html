@@ -10,10 +10,11 @@
   <main class="container">
     <h1>Profesores</h1>
     <a href="index.html" class="small">← Volver</a>
-    <form onsubmit="event.preventDefault();addProfesor(this.nombre.value,this.asignatura.value);this.reset();populateSelects();">
+    <form onsubmit="event.preventDefault();SchoolApp.saveProfesor(this.profId.value,this.nombre.value,this.asignatura.value);this.reset();SchoolApp.populateSelects();">
+      <input type="hidden" id="profId" name="profId" value="">
       <input name="nombre" placeholder="Nombre" required>
       <input name="asignatura" placeholder="Asignatura" required>
-      <button class="btn" type="submit">Agregar</button>
+      <button class="btn" type="submit">Guardar</button>
     </form>
     <table>
       <thead><tr><th>Nombre</th><th>Asignatura</th><th></th></tr></thead>

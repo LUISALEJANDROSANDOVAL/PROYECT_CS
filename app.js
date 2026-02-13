@@ -23,7 +23,10 @@ const Renderer = {
 			<tr>
 				<td>${p.nombre}</td>
 				<td>${p.asignatura}</td>
-				<td class="actions"><button onclick="SchoolApp.removeItem('${STORAGE_KEYS.PROF}',${p.id})" class="btn secondary">Eliminar</button></td>
+				<td class="actions">
+					<button onclick="SchoolApp.editProfesor(${p.id})" class="btn">Editar</button>
+					<button onclick="SchoolApp.removeItem('${STORAGE_KEYS.PROF}',${p.id})" class="btn secondary">Eliminar</button>
+				</td>
 			</tr>
 		`).join('');
 		this.render('profesoresList', rows);
@@ -76,6 +79,31 @@ const SchoolApp = {
 	addProfesor(nombre, asignatura) {
 		if (!nombre || !asignatura) return;
 		SchoolStore.add(STORAGE_KEYS.PROF, { id: Date.now(), nombre, asignatura });
+		Renderer.profesores(); Renderer.populateSelects();
+	},
+
+	editProfesor(id) {
+		const list = SchoolStore.read(STORAGE_KEYS.PROF);
+		const p = list.find(x => x.id === Number(id));
+		if (!p) return;
+		const idInput = document.getElementById('profId');
+		const nombreInput = document.querySelector('form input[name="nombre"]');
+		const asignInput = document.querySelector('form input[name="asignatura"]');
+		if (idInput) idInput.value = p.id;
+		if (nombreInput) nombreInput.value = p.nombre;
+		if (asignInput) asignInput.value = p.asignatura;
+	},
+
+	saveProfesor(id, nombre, asignatura) {
+		if (id && id !== '') {
+			const list = SchoolStore.read(STORAGE_KEYS.PROF).map(p => {
+				if (p.id === Number(id)) return { id: p.id, nombre, asignatura };
+				return p;
+			});
+			SchoolStore.write(STORAGE_KEYS.PROF, list);
+		} else {
+			this.addProfesor(nombre, asignatura);
+		}
 		Renderer.profesores(); Renderer.populateSelects();
 	},
 	addEstudiante(nombre, grado) {
