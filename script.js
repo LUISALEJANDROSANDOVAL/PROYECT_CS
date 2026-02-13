@@ -1,26 +1,34 @@
-const initApp = () => {
-    const statusText = document.getElementById('js-status');
-    const actionBtn = document.getElementById('btn-action');
-    const logMessage = document.getElementById('log-message');
+document.addEventListener('DOMContentLoaded', () => {
+    const teamGrid = document.getElementById('team-grid');
+    const syncBtn = document.getElementById('btn-sync');
 
-    // Simular carga de datos
-    setTimeout(() => {
-        statusText.innerHTML = "🟢 <span style='color: #10b981'>Sincronizado con GitHub</span>";
-    }, 1500);
+    // Datos simulados (como si vinieran del data.json)
+    const teamData = [
+        { nombre: "Luis Alejandro", rol: "Líder", status: "Online" },
+        { nombre: "Víctor", rol: "Backend", status: "Away" },
+        { nombre: "Ismael", rol: "Frontend", status: "Offline" }
+    ];
 
-    // Manejo de eventos
-    actionBtn.addEventListener('click', () => {
-        actionBtn.innerText = "Procesando...";
-        actionBtn.style.opacity = "0.7";
-        
+    const loadTeam = () => {
+        teamGrid.innerHTML = '';
+        teamData.forEach(member => {
+            const card = document.createElement('div');
+            card.className = 'member-card';
+            card.innerHTML = `
+                <h4>${member.nombre}</h4>
+                <p style="font-size: 0.8rem; color: #6366f1">${member.rol}</p>
+                <small>${member.status}</small>
+            `;
+            teamGrid.appendChild(card);
+        });
+    };
+
+    syncBtn.addEventListener('click', () => {
+        syncBtn.innerText = "Sincronizando...";
         setTimeout(() => {
-            const fecha = new Date().toLocaleTimeString();
-            logMessage.innerText = `[${fecha}] Diagnóstico completado: Ramas optimizadas.`;
-            actionBtn.innerText = "Ejecutar Diagnóstico";
-            actionBtn.style.opacity = "1";
-        }, 2000);
+            loadTeam();
+            syncBtn.innerText = "Datos Sincronizados";
+            syncBtn.style.background = "#10b981";
+        }, 1000);
     });
-};
-
-// Ejecutar cuando el HTML esté listo
-document.addEventListener('DOMContentLoaded', initApp);
+});
