@@ -1,15 +1,26 @@
-// Esperar a que el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    const statusElement = document.getElementById('js-status');
-    const button = document.getElementById('btn-click');
+const initApp = () => {
+    const statusText = document.getElementById('js-status');
+    const actionBtn = document.getElementById('btn-action');
+    const logMessage = document.getElementById('log-message');
 
-    // Confirmar que el JS funciona
-    statusElement.textContent = "✅ Activo y conectado";
-    statusElement.style.color = "#00ff88";
+    // Simular carga de datos
+    setTimeout(() => {
+        statusText.innerHTML = "🟢 <span style='color: #10b981'>Sincronizado con GitHub</span>";
+    }, 1500);
 
-    // Evento del botón
-    button.addEventListener('click', () => {
-        alert("¡Hola! El equipo de Proyecto CS está listo para programar.");
-        console.log("Botón presionado correctamente.");
+    // Manejo de eventos
+    actionBtn.addEventListener('click', () => {
+        actionBtn.innerText = "Procesando...";
+        actionBtn.style.opacity = "0.7";
+        
+        setTimeout(() => {
+            const fecha = new Date().toLocaleTimeString();
+            logMessage.innerText = `[${fecha}] Diagnóstico completado: Ramas optimizadas.`;
+            actionBtn.innerText = "Ejecutar Diagnóstico";
+            actionBtn.style.opacity = "1";
+        }, 2000);
     });
-});
+};
+
+// Ejecutar cuando el HTML esté listo
+document.addEventListener('DOMContentLoaded', initApp);
