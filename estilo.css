@@ -1,0 +1,22 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 20px;
+}
+
+h1 {
+  color: #333;
+}
+
+form, table, ul {
+  background: #fff;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+}
