@@ -3,18 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto CS - Equipo</title>
+    <title>Dashboard | Proyecto CS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>🚀 Proyecto CS</h1>
-        <p>Repositorio configurado correctamente.</p>
-        <div id="status-card" class="card">
-            <p>Estado del JS: <span id="js-status">Cargando...</span></p>
-        </div>
-        <button id="btn-click">¡Haz clic aquí!</button>
-    </div>
+    <main class="container">
+        <header>
+            <span class="badge">v1.0.0</span>
+            <h1>Proyecto <span class="highlight">CS</span></h1>
+            <p class="subtitle">Panel de Control del Repositorio</p>
+        </header>
+
+        <section class="grid">
+            <div class="card" id="card-status">
+                <h3>Estado del Sistema</h3>
+                <p id="js-status">Esperando respuesta...</p>
+            </div>
+            <div class="card">
+                <h3>Integrantes</h3>
+                <ul class="team-list">
+                    <li>Luis Alejandro</li>
+                    <li>Víctor</li>
+                    <li>Ismael</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            <button id="btn-action" class="btn-primary">Ejecutar Diagnóstico</button>
+            <p id="log-message"></p>
+        </footer>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>
