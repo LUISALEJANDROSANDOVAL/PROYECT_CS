@@ -3,38 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Proyecto CS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>DevPanel | Proyecto CS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main class="container">
-        <header>
-            <span class="badge">v1.0.0</span>
-            <h1>Proyecto <span class="highlight">CS</span></h1>
-            <p class="subtitle">Panel de Control del Repositorio</p>
-        </header>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">CS</div>
+            <nav>
+                <div class="nav-item active">📊 Dashboard</div>
+            </nav>
+        </aside>
 
-        <section class="grid">
-            <div class="card" id="card-status">
-                <h3>Estado del Sistema</h3>
-                <p id="js-status">Esperando respuesta...</p>
-            </div>
-            <div class="card">
-                <h3>Integrantes</h3>
-                <ul class="team-list">
-                    <li>Luis Alejandro</li>
-                    <li>Víctor</li>
-                    <li>Ismael</li>
-                </ul>
-            </div>
-        </section>
+        <main class="main-content">
+            <header class="top-bar">
+                <h2>Panel de Control <span id="ver-tag">v1.1</span></h2>
+                <div class="user-profile">Luis Alejandro</div>
+            </header>
 
-        <footer>
-            <button id="btn-action" class="btn-primary">Ejecutar Diagnóstico</button>
-            <p id="log-message"></p>
-        </footer>
-    </main>
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <h4>Archivos en Rama</h4>
+                    <p class="stat-value">4</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Estado Git</h4>
+                    <p class="stat-value" id="git-status">Conectado</p>
+                </div>
+            </section>
+
+            <section class="team-section">
+                <h3>Equipo del Proyecto</h3>
+                <div id="team-grid" class="team-grid">
+                    </div>
+            </section>
+
+            <button id="btn-sync" class="btn-main">Sincronizar Datos JSON</button>
+        </main>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
