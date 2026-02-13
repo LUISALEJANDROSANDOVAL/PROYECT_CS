@@ -10,10 +10,11 @@
   <main class="container">
     <h1>Estudiantes</h1>
     <a href="index.html" class="small">← Volver</a>
-    <form onsubmit="event.preventDefault();addEstudiante(this.nombre.value,this.grado.value);this.reset();populateSelects();">
+    <form onsubmit="event.preventDefault();SchoolApp.saveEstudiante(this.estId.value,this.nombre.value,this.grado.value);this.reset();SchoolApp.populateSelects();">
+      <input type="hidden" id="estId" name="estId" value="">
       <input name="nombre" placeholder="Nombre" required>
       <input name="grado" placeholder="Grado / Aula" required>
-      <button class="btn" type="submit">Agregar</button>
+      <button class="btn" type="submit">Guardar</button>
     </form>
     <table>
       <thead><tr><th>Nombre</th><th>Grado</th><th></th></tr></thead>

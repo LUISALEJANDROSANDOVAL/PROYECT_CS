@@ -34,7 +34,10 @@ const Renderer = {
 			<tr>
 				<td>${s.nombre}</td>
 				<td>${s.grado}</td>
-				<td class="actions"><button onclick="SchoolApp.removeItem('${STORAGE_KEYS.STUD}',${s.id})" class="btn secondary">Eliminar</button></td>
+				<td class="actions">
+					<button onclick="SchoolApp.editEstudiante(${s.id})" class="btn">Editar</button>
+					<button onclick="SchoolApp.removeItem('${STORAGE_KEYS.STUD}',${s.id})" class="btn secondary">Eliminar</button>
+				</td>
 			</tr>
 		`).join('');
 		this.render('estudiantesList', rows);
@@ -78,6 +81,31 @@ const SchoolApp = {
 	addEstudiante(nombre, grado) {
 		if (!nombre || !grado) return;
 		SchoolStore.add(STORAGE_KEYS.STUD, { id: Date.now(), nombre, grado });
+		Renderer.estudiantes(); Renderer.populateSelects();
+	},
+
+	editEstudiante(id) {
+		const list = SchoolStore.read(STORAGE_KEYS.STUD);
+		const s = list.find(x => x.id === Number(id));
+		if (!s) return;
+		const idInput = document.getElementById('estId');
+		const nombreInput = document.querySelector('form input[name="nombre"]');
+		const gradoInput = document.querySelector('form input[name="grado"]');
+		if (idInput) idInput.value = s.id;
+		if (nombreInput) nombreInput.value = s.nombre;
+		if (gradoInput) gradoInput.value = s.grado;
+	},
+
+	saveEstudiante(id, nombre, grado) {
+		if (id && id !== '') {
+			const list = SchoolStore.read(STORAGE_KEYS.STUD).map(s => {
+				if (s.id === Number(id)) return { id: s.id, nombre, grado };
+				return s;
+			});
+			SchoolStore.write(STORAGE_KEYS.STUD, list);
+		} else {
+			this.addEstudiante(nombre, grado);
+		}
 		Renderer.estudiantes(); Renderer.populateSelects();
 	},
 	addCalificacion(estId, profId, valor) {
