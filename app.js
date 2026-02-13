@@ -1,16 +1,102 @@
-const STORAGE_KEYS={PROF:'profesores',STUD:'estudiantes',GRADE:'calificaciones'}
-function read(key){return JSON.parse(localStorage.getItem(key)||'[]')}
-function write(key,v){localStorage.setItem(key,JSON.stringify(v))}
-function addProfesor(nombre,asignatura){const list=read(STORAGE_KEYS.PROF);list.push({id:Date.now(),nombre,asignatura});write(STORAGE_KEYS.PROF,list);renderProfesores()}
-function addEstudiante(nombre,grado){const list=read(STORAGE_KEYS.STUD);list.push({id:Date.now(),nombre,grado});write(STORAGE_KEYS.STUD,list);renderEstudiantes()}
-function addCalificacion(estId,profId,valor){const list=read(STORAGE_KEYS.GRADE);list.push({id:Date.now(),estId,profId,valor:Number(valor)});write(STORAGE_KEYS.GRADE,list);renderCalificaciones()}
-function removeItem(key,id){const list=read(key).filter(i=>i.id!==id);write(key,list);if(key===STORAGE_KEYS.PROF)renderProfesores();if(key===STORAGE_KEYS.STUD)renderEstudiantes();if(key===STORAGE_KEYS.GRADE)renderCalificaciones()}
-function renderProfesores(){const el=document.getElementById('profesoresList');if(!el) return;const data=read(STORAGE_KEYS.PROF);el.innerHTML=data.map(p=>`<tr><td>${p.nombre}</td><td>${p.asignatura}</td><td class="actions"><button onclick="removeItem('${STORAGE_KEYS.PROF}',${p.id})" class="btn secondary">Eliminar</button></td></tr>`).join('')}
-function renderEstudiantes(){const el=document.getElementById('estudiantesList');if(!el) return;const data=read(STORAGE_KEYS.STUD);el.innerHTML=data.map(s=>`<tr><td>${s.nombre}</td><td>${s.grado}</td><td class="actions"><button onclick="removeItem('${STORAGE_KEYS.STUD}',${s.id})" class="btn secondary">Eliminar</button></td></tr>`).join('')}
-function renderCalificaciones(){const el=document.getElementById('calificacionesList');if(!el) return;const grades=read(STORAGE_KEYS.GRADE);const studs=read(STORAGE_KEYS.STUD);const profs=read(STORAGE_KEYS.PROF);
-  if(grades.length===0){el.innerHTML='<tr><td colspan="4" class="small">Sin registros</td></tr>';return}
-  el.innerHTML=grades.map(g=>{const est=studs.find(s=>s.id===g.estId);const prof=profs.find(p=>p.id===g.profId);return `<tr><td>${est?est.nombre:'-'}</td><td>${prof?prof.nombre:'-'}</td><td>${g.valor}</td><td class="actions"><button onclick="removeItem('${STORAGE_KEYS.GRADE}',${g.id})" class="btn secondary">Eliminar</button></td></tr>`}).join('')
-}
-function populateSelects(){const sEst=document.getElementById('selEstudiante');const sProf=document.getElementById('selProfesor');if(sEst){sEst.innerHTML=read(STORAGE_KEYS.STUD).map(s=>`<option value="${s.id}">${s.nombre}</option>`).join('')}if(sProf){sProf.innerHTML=read(STORAGE_KEYS.PROF).map(p=>`<option value="${p.id}">${p.nombre} (${p.asignatura})</option>`).join('') }}
-window.addEventListener('load',()=>{renderProfesores();renderEstudiantes();renderCalificaciones();populateSelects()});
-window.addProfesor=addProfesor;window.addEstudiante=addEstudiante;window.addCalificacion=addCalificacion;window.removeItem=removeItem;window.populateSelects=populateSelects
+const STORAGE_KEYS = {
+	PROF: 'profesores',
+	STUD: 'estudiantes',
+	GRADE: 'calificaciones'
+};
+
+const SchoolStore = {
+	read(key) { return JSON.parse(localStorage.getItem(key) || '[]'); },
+	write(key, value) { localStorage.setItem(key, JSON.stringify(value)); },
+	add(key, item) { const list = this.read(key); list.push(item); this.write(key, list); },
+	remove(key, id) { const list = this.read(key).filter(i => i.id !== id); this.write(key, list); }
+};
+
+const Renderer = {
+	render(tableId, rowsHtml) {
+		const el = document.getElementById(tableId);
+		if (!el) return;
+		el.innerHTML = rowsHtml;
+	},
+	profesores() {
+		const data = SchoolStore.read(STORAGE_KEYS.PROF);
+		const rows = data.map(p => `
+			<tr>
+				<td>${p.nombre}</td>
+				<td>${p.asignatura}</td>
+				<td class="actions"><button onclick="SchoolApp.removeItem('${STORAGE_KEYS.PROF}',${p.id})" class="btn secondary">Eliminar</button></td>
+			</tr>
+		`).join('');
+		this.render('profesoresList', rows);
+	},
+	estudiantes() {
+		const data = SchoolStore.read(STORAGE_KEYS.STUD);
+		const rows = data.map(s => `
+			<tr>
+				<td>${s.nombre}</td>
+				<td>${s.grado}</td>
+				<td class="actions"><button onclick="SchoolApp.removeItem('${STORAGE_KEYS.STUD}',${s.id})" class="btn secondary">Eliminar</button></td>
+			</tr>
+		`).join('');
+		this.render('estudiantesList', rows);
+	},
+	calificaciones() {
+		const grades = SchoolStore.read(STORAGE_KEYS.GRADE);
+		const studs = SchoolStore.read(STORAGE_KEYS.STUD);
+		const profs = SchoolStore.read(STORAGE_KEYS.PROF);
+		if (grades.length === 0) { this.render('calificacionesList', '<tr><td colspan="4" class="small">Sin registros</td></tr>'); return; }
+		const rows = grades.map(g => {
+			const est = studs.find(s => s.id === g.estId);
+			const prof = profs.find(p => p.id === g.profId);
+			return `
+				<tr>
+					<td>${est ? est.nombre : '-'}</td>
+					<td>${prof ? prof.nombre : '-'}</td>
+					<td>${g.valor}</td>
+					<td class="actions"><button onclick="SchoolApp.removeItem('${STORAGE_KEYS.GRADE}',${g.id})" class="btn secondary">Eliminar</button></td>
+				</tr>
+			`;
+		}).join('');
+		this.render('calificacionesList', rows);
+	},
+	populateSelects() {
+		const sEst = document.getElementById('selEstudiante');
+		const sProf = document.getElementById('selProfesor');
+		const studs = SchoolStore.read(STORAGE_KEYS.STUD);
+		const profs = SchoolStore.read(STORAGE_KEYS.PROF);
+		if (sEst) sEst.innerHTML = studs.map(s => `<option value="${s.id}">${s.nombre}</option>`).join('');
+		if (sProf) sProf.innerHTML = profs.map(p => `<option value="${p.id}">${p.nombre} (${p.asignatura})</option>`).join('');
+	}
+};
+
+const SchoolApp = {
+	init() { Renderer.profesores(); Renderer.estudiantes(); Renderer.calificaciones(); Renderer.populateSelects(); },
+	addProfesor(nombre, asignatura) {
+		if (!nombre || !asignatura) return;
+		SchoolStore.add(STORAGE_KEYS.PROF, { id: Date.now(), nombre, asignatura });
+		Renderer.profesores(); Renderer.populateSelects();
+	},
+	addEstudiante(nombre, grado) {
+		if (!nombre || !grado) return;
+		SchoolStore.add(STORAGE_KEYS.STUD, { id: Date.now(), nombre, grado });
+		Renderer.estudiantes(); Renderer.populateSelects();
+	},
+	addCalificacion(estId, profId, valor) {
+		if (!estId || !profId || valor === '' || valor === null) return;
+		const v = Number(valor);
+		if (Number.isNaN(v)) return;
+		SchoolStore.add(STORAGE_KEYS.GRADE, { id: Date.now(), estId: Number(estId), profId: Number(profId), valor: v });
+		Renderer.calificaciones();
+	},
+	removeItem(key, id) {
+		SchoolStore.remove(key, id);
+		if (key === STORAGE_KEYS.PROF) { Renderer.profesores(); Renderer.populateSelects(); }
+		if (key === STORAGE_KEYS.STUD) { Renderer.estudiantes(); Renderer.populateSelects(); }
+		if (key === STORAGE_KEYS.GRADE) Renderer.calificaciones();
+	},
+	populateSelects() { Renderer.populateSelects(); }
+};
+
+window.SchoolApp = SchoolApp;
+
+window.addEventListener('load', () => SchoolApp.init());
+
