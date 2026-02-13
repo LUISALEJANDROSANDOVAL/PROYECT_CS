@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Calificaciones</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Calificaciones</h1>
+    <a href="index.html" class="small">← Volver</a>
+    <form onsubmit="event.preventDefault();addCalificacion(Number(this.selEstudiante.value),Number(this.selProfesor.value),this.nota.value);this.reset();">
+      <select id="selEstudiante" name="selEstudiante" required></select>
+      <select id="selProfesor" name="selProfesor" required></select>
+      <input name="nota" type="number" min="0" max="100" step="0.1" placeholder="Nota" required>
+      <button class="btn" type="submit">Registrar</button>
+    </form>
+    <table>
+      <thead><tr><th>Estudiante</th><th>Profesor</th><th>Nota</th><th></th></tr></thead>
+      <tbody id="calificacionesList"></tbody>
+    </table>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
