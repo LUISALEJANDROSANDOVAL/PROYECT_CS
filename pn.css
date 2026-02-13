@@ -1,0 +1,90 @@
+/* Estilos Avanzados para el Panel de Navegación (PN) */
+
+:root {
+  --primario: #4e73df;
+  --primario-dark: #224abe;
+  --secundario: #858796;
+  --exito: #1cc88a;
+  --accion: #f6c23e;
+  --fondo-dashboard: #f0f2f5;
+  --blanco-puro: #ffffff;
+}
+
+/* Contenedor principal con Grid para mejor control */
+.pn-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  padding: 30px;
+  background-color: var(--fondo-dashboard);
+  min-height: 100vh;
+}
+
+/* Tarjetas Estilo Moderno */
+.pn-card {
+  background: var(--blanco-puro);
+  border: none;
+  border-radius: 15px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.pn-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primario), var(--exito));
+}
+
+.pn-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+}
+
+.pn-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primario);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Botones con Gradiente */
+.pn-btn {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--primario) 0%, var(--primario-dark) 100%);
+  color: var(--blanco-puro);
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(78, 115, 223, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pn-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(78, 115, 223, 0.4);
+  color: #fff;
+}
+
+/* Insignias con colores vivos */
+.pn-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 50px;
+  background-color: rgba(28, 200, 138, 0.15);
+  color: var(--exito);
+  border: 1px solid var(--exito);
+}
