@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sistema Escolar - Inicio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="logo">Sistema Escolar</h1>
+      <nav class="nav">
+        <a href="profesores.html">Profesores</a>
+        <a href="estudiantes.html">Estudiantes</a>
+        <a href="calificaciones.html">Calificaciones</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h2>Gestiona profesores, estudiantes y calificaciones</h2>
+          <p class="lead">Interfaz sencilla y responsive que guarda los datos en el navegador. Agrega, edita y gestiona fácilmente desde aquí.</p>
+          <p class="cta-row">
+            <a class="btn" href="estudiantes.html">Ver Estudiantes</a>
+            <a class="btn secondary" href="profesores.html">Ver Profesores</a>
+          </p>
+        </div>
+        <div class="hero-cards">
+          <a class="card large" href="estudiantes.html">
+            <strong>Estudiantes</strong>
+            <span>Crear y editar alumnos</span>
+          </a>
+          <a class="card large" href="profesores.html">
+            <strong>Profesores</strong>
+            <span>Administrar asignaturas</span>
+          </a>
+          <a class="card large" href="calificaciones.html">
+            <strong>Calificaciones</strong>
+            <span>Registrar y revisar notas</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container about">
+      <h3>Sobre este proyecto</h3>
+      <p>Este proyecto usa `localStorage` para mantener los datos en el navegador sin necesidad de servidor. Es ideal para pruebas y para aprender conceptos básicos de CRUD en front-end.</p>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
