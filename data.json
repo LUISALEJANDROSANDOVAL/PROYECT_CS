@@ -1,21 +1,58 @@
 {
-  "proyecto": "Sistema CS",
-  "version": "1.1.0",
-  "equipo": [
+  "project_info": {
+    "name": "Sistema de Gestión CS",
+    "codename": "Alpha-Titan",
+    "version": "1.2.0",
+    "last_update": "2024-05-20",
+    "environment": "development"
+  },
+  "team_settings": {
+    "organization": "UTPSA",
+    "max_members": 5,
+    "current_branch": "feature/luis"
+  },
+  "members": [
     {
-      "nombre": "Luis Alejandro",
-      "rol": "Líder de Proyecto / Git Master",
-      "status": "Online"
+      "id": 1,
+      "name": "Luis Alejandro",
+      "role": "Project Manager & Git Master",
+      "specialties": ["Git Flow", "System Architecture", "HTML5"],
+      "status": {
+        "availability": "online",
+        "last_login": "10 mins ago",
+        "tasks_completed": 12
+      },
+      "contact": "luis@example.com"
     },
     {
-      "nombre": "Víctor",
-      "rol": "Desarrollador Backend",
-      "status": "Away"
+      "id": 2,
+      "name": "Jorge",
+      "role": "Backend Developer",
+      "specialties": ["JSON APIs", "Node.js", "Databases"],
+      "status": {
+        "availability": "away",
+        "last_login": "2 hours ago",
+        "tasks_completed": 8
+      },
+      "contact": "jorge@example.com"
     },
     {
-      "nombre": "Ismael",
-      "rol": "Desarrollador Frontend",
-      "status": "Offline"
+      "id": 3,
+      "name": "David",
+      "role": "Frontend Developer",
+      "specialties": ["CSS3", "JavaScript ES6", "UI Design"],
+      "status": {
+        "availability": "offline",
+        "last_login": "1 day ago",
+        "tasks_completed": 5
+      },
+      "contact": "david@example.com"
     }
+  ],
+  "stack_technologies": [
+    "HTML5",
+    "CSS3",
+    "JavaScript",
+    "Git"
   ]
 }
