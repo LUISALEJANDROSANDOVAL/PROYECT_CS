@@ -11,14 +11,54 @@
     <h1>Calificaciones</h1>
     <a href="index.html" class="small">← Volver</a>
     <form onsubmit="event.preventDefault();addCalificacion(Number(this.selEstudiante.value),Number(this.selProfesor.value),this.nota.value);this.reset();">
-      <select id="selEstudiante" name="selEstudiante" required></select>
-      <select id="selProfesor" name="selProfesor" required></select>
+      <select id="selEstudiante" name="selEstudiante" required>
+        <option value="0">Ana Pérez</option>
+        <option value="1">Luis García</option>
+        <option value="2">María López</option>
+        <option value="3">Carlos Ruiz</option>
+      </select>
+      <select id="selProfesor" name="selProfesor" required>
+        <option value="0">Sra. Gómez</option>
+        <option value="1">Sr. Fernández</option>
+        <option value="2">Dra. Torres</option>
+      </select>
       <input name="nota" type="number" min="0" max="100" step="0.1" placeholder="Nota" required>
       <button class="btn" type="submit">Registrar</button>
     </form>
     <table>
       <thead><tr><th>Estudiante</th><th>Profesor</th><th>Nota</th><th></th></tr></thead>
-      <tbody id="calificacionesList"></tbody>
+      <tbody id="calificacionesList">
+        <tr>
+          <td>Ana Pérez</td>
+          <td>Sra. Gómez</td>
+          <td>85.5</td>
+          <td><button onclick="deleteCalificacion(0)">Eliminar</button></td>
+        </tr>
+        <tr>
+          <td>Luis García</td>
+          <td>Sr. Fernández</td>
+          <td>92.0</td>
+          <td><button onclick="deleteCalificacion(1)">Eliminar</button></td>
+        </tr>
+        <tr>
+          <td>María López</td>
+          <td>Dra. Torres</td>
+          <td>78.3</td>
+          <td><button onclick="deleteCalificacion(2)">Eliminar</button></td>
+        </tr>
+        <tr>
+          <td>Carlos Ruiz</td>
+          <td>Sra. Gómez</td>
+          <td>88.7</td>
+          <td><button onclick="deleteCalificacion(3)">Eliminar</button></td>
+        </tr>
+        <tr>
+          <td>Ana Pérez</td>
+          <td>Sr. Fernández</td>
+          <td>95.2</td>
+          <td><button onclick="deleteCalificacion(4)">Eliminar</button></td>
+        </tr>
+      </tbody>
     </table>
   </main>
   <script src="app.js"></script>
